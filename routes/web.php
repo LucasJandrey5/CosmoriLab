@@ -13,7 +13,6 @@ Route::get('/userList', function () {
     return view('userListPage');
 });
 
-
 Route::get('/analytics', function () {
     return view('analytics');
 });
@@ -28,7 +27,6 @@ Route::get('/listData', function () {
 
     //dd($users);
     return view('admin.listData', ['users' => $users, 'currentPage' => 1]);
-
 });
 
 Route::get('/createNewUser', function () {
@@ -36,7 +34,6 @@ Route::get('/createNewUser', function () {
 });
 
 Route::post('/createdNewUser', function (Request $request) {
-
     //Criando novo usuario pelo admin panel no banco de dados
     User::create([
         'name_string' => $request->name,
@@ -48,4 +45,8 @@ Route::post('/createdNewUser', function (Request $request) {
     ]);
 
     echo 'Usuario criado com sucesso.';
+});
+
+Route::get('/teste', function () {
+    return view('admin.login');
 });

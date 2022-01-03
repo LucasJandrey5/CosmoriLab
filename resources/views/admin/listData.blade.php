@@ -1,6 +1,6 @@
 <?php
     $showingCount = 0;
-    $itemsPerPage = 2;
+    $itemsPerPage = 15;
     $totalPagesToShow = 1;
 ?>
 
