@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Models\Musica;
 use Illuminate\Support\Facades\Route;
@@ -7,59 +8,41 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', function () { return view('index'); });
 
 Route::get('/login', [UserController::class, 'login'])->name('login.page');
 
-Route::post('/login', [UserController::class, 'auth'])->name('auth.user');
+Route::post('/login_auth', [UserController::class, 'Login_auth'])->name('login_auth.user');
+
+Route::get('/register', [UserController::class, 'register'])->name('register.user');
+
+Route::post('/register_auth', [UserController::class, 'register_auth'])->name('register_auth.user');
+
+Route::get('/log-out', [UserController::class, 'logout'])->name('log-out.user');
 
 
-Route::get('/register', function () {
-    return view('register');
-});
 
-Route::get('/userList', function () {
-    return view('userListPage');
-});
+Route::middleware(['admin'])->group(function () {
+    Route::get('/adm', [AdminController::class, 'ADMPage'])->name('adm.page');
 
-Route::get('/analytics', function () {
-    return view('analytics');
-});
+    Route::get('/listUserData', [AdminController::class, 'PageListUserData'])->name('listUserData.page');
 
-Route::get('/adm', function () {
-    return view('admin.index');
-})->middleware('auth:admin');
+    Route::get('/listMusicData', [AdminController::class, 'PageListMusicData'])->name('listMusicData.page');
 
-Route::get('/listUserData', function () {
-    //Recebe todos os dados dos usuarios
-    $users = User::all();
-    //Envia para a pagina lista usuarios os dados dos usuarios
-    return view('admin.listUserData', ['users' => $users]);
-});
+    Route::get('/createNewUser', [AdminController::class, 'PageCreateNewUser'])->name('createNewUser.page');
 
-Route::get('/listMusicData', function () {
-    $musics = Musica::all();
 
-    //Envia para a pagina lista usuarios os dados dos usuarios
-    return view('admin.listMusicData', ['musics' => $musics]);
-});
+    Route::post('/createdNewUser', function (Request $request) {
+        //Criando novo usuario pelo admin panel no banco de dados
+        User::create([
+            'name_string' => $request->name,
+            'email_string' => $request->email,
+            'password_string' => $request->password,
+            'phone_string' => $request->phone,
+            'access_level_enum' => $request->access_level_enum,
+            'birth_date' => $request->birthday
+        ]);
 
-Route::get('/createNewUser', function () {
-    return view('admin.createNewUser');
-});
-
-Route::post('/createdNewUser', function (Request $request) {
-    //Criando novo usuario pelo admin panel no banco de dados
-    User::create([
-        'name_string' => $request->name,
-        'email_string' => $request->email,
-        'password_string' => $request->password,
-        'phone_string' => $request->phone,
-        'access_level_enum' => $request->access_level_enum,
-        'birth_date' => $request->birthday
-    ]);
-
-    echo 'Usuario criado com sucesso.';
+        echo 'Usuario criado com sucesso.';
+    });
 });

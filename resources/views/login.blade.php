@@ -52,7 +52,7 @@
                         </div>
                         <div class="card-body p-4 p-sm-5">
                             <h5 class="card-title text-center mb-5 fw-light fs-5">Bem vindo de volta!</h5>
-                            <form method="POST" action="{{route('auth.user')}}">
+                            <form method="POST" action="{{route('login_auth.user')}}">
                                 @csrf
                                 @if ($errors->any())
                                 <div class="alert alert-danger">

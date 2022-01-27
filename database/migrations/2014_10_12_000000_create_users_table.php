@@ -21,9 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('email_string')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('phone_string');
+            $table->string('phone_string')->nullable();
             $table->enum('access_level_enum', ['ADM', 'EMPLOYEE', 'USER', 'COMPOSER']);
-            $table->date('birth_date');
+            $table->date('birth_date')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

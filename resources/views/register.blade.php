@@ -38,7 +38,6 @@
             background-color: #3b5998;
         }
     </style>
-
 </head>
 
 <body>
@@ -54,27 +53,27 @@
                         </div>
                         <div class="card-body p-4 p-sm-5">
                             <h5 class="card-title text-center mb-5 fw-light fs-5">Crie uma nova conta!</h5>
-                            <form>
-
+                            <form method="post" action="{{route('register_auth.user')}}">
+                                @csrf
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="floatingInputUsername" placeholder="myusername" required autofocus>
+                                    <input type="text" name='username' class="form-control" id="floatingInputUsername" placeholder="Nome de usuário" required autofocus>
                                     <label for="floatingInputUsername">Nome de Usuário</label>
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <input type="email" class="form-control" id="floatingInputEmail" placeholder="name@example.com">
+                                    <input type="email" name='email' class="form-control" id="floatingInputEmail" placeholder="nome@exemplo.com">
                                     <label for="floatingInputEmail">Email</label>
                                 </div>
 
                                 <hr>
 
                                 <div class="form-floating mb-3">
-                                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                                    <input type="password" name='password' class="form-control" id="floatingPassword" placeholder="Senha...">
                                     <label for="floatingPassword">Senha</label>
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <input type="password" class="form-control" id="floatingPasswordConfirm" placeholder="Confirm Password">
+                                    <input type="password" class="form-control" id="floatingPasswordConfirm" placeholder="Confirme sua senha">
                                     <label for="floatingPasswordConfirm">Confirme sua senha</label>
                                 </div>
 

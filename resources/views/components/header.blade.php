@@ -1,3 +1,32 @@
+<?php
+use Illuminate\Support\Facades\Auth;
+
+function fullNameToFirstName($fullName, $checkFirstNameLength=TRUE)
+{
+	// Split out name so we can quickly grab the first name part
+	$nameParts = explode(' ', $fullName);
+	$firstName = $nameParts[0];
+
+	// If the first part of the name is a prefix, then find the name differently
+	if(in_array(strtolower($firstName), array('mr', 'ms', 'mrs', 'miss', 'dr', 'mr.', 'ms.', 'mrs.', 'miss.', 'dr.'))) {
+		if($nameParts[2]!='') {
+			// E.g. Mr James Smith -> James
+			$firstName = $nameParts[1];
+		} else {
+			// e.g. Mr Smith (no first name given)
+			$firstName = $fullName;
+		}
+	}
+
+	// make sure the first name is not just "J", e.g. "J Smith" or "Mr J Smith" or even "Mr J. Smith"
+	if($checkFirstNameLength && strlen($firstName)<4) {
+		$firstName = $fullName;
+	}
+	return $firstName;
+}
+
+?>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
 <link rel="stylesheet" href="{{ URL::asset('css/header.css') }}">
 <script type="text/javascript" src="{{ URL::asset('js/header.js') }}"></script>
@@ -11,7 +40,15 @@
                     <div class="col d-flex flex-row">
                         <div class="top_bar_contact_item">
                             <div class="top_bar_icon"><i class="far fa-user-circle"></i>
-                            </div>Seja bem vindo Lucas!
+                            </div>
+                            <?php if(Auth::check()){
+                                    echo ' Seja bem-vindo(a) ';
+                                    echo auth()->user()->name_string;
+                                    echo '!';
+                                } else {
+                                    echo 'Seja bem-vindo(a)';
+                                }
+                            ?>
                         </div>
                         <div class="top_bar_content ml-auto">
                             <div class="top_bar_menu">
@@ -34,8 +71,19 @@
                             </div>
                             <div class="top_bar_user">
                                 <div class="user_icon"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918647/user.svg" alt=""></div>
-                                <div><a href="register">Registrar-se</a></div>
-                                <div><a href="login">Login</a></div>
+                                <?php
+                                    if(Auth::check()){
+                                        echo '<div><a href="log-out">'.fullNameToFirstName(Auth::user()->name_string).'</a></div>
+                                              <div><a href="log-out">Deslogar-se</a></div>
+                                        ';
+                                    } else {
+                                        echo '
+                                        <div><a href="register">Registrar-se</a></div>
+                                        <div><a href="login">Login</a></div>
+                                        ';
+                                    }
+                                ?>
+
                             </div>
                         </div>
                     </div>
