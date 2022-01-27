@@ -13,7 +13,6 @@
     <script src="https://kit.fontawesome.com/67781df9f7.js" crossorigin="anonymous"></script>
     <title>Cosmori Lab</title>
     <style>
-
         .card-img-left {
             width: 45%;
             /* Link to your background image using in the property below! */
@@ -53,19 +52,35 @@
                         </div>
                         <div class="card-body p-4 p-sm-5">
                             <h5 class="card-title text-center mb-5 fw-light fs-5">Bem vindo de volta!</h5>
-                            <form>
+                            <form method="POST" action="{{route('auth.user')}}">
+                                @csrf
+                                @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                @endif
+
+                                @if(session('danger'))
+                                    <div class="alert alert-danger">
+        	                            {{session('danger')}}
+                                    </div>
+                                @endif
                                 <div class="form-floating mb-3">
-                                    <input type="email" class="form-control" id="floatingInputEmail" placeholder="name@example.com">
+                                    <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com">
                                     <label for="floatingInputEmail">Email</label>
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                                    <input type="password" name="password" class="form-control" id="password" placeholder="Password">
                                     <label for="floatingPassword">Senha</label>
                                 </div>
 
                                 <div class="form-check mb-3">
-                                    <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
+                                    <input class="form-check-input" name="remember" type="checkbox" value="" id="rememberPasswordCheck">
                                     <label class="form-check-label" for="rememberPasswordCheck">
                                         Mantenha-me conectado.
                                     </label>

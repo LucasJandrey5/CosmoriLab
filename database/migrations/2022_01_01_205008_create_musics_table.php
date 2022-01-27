@@ -1,10 +1,12 @@
 <?php
 
+use Database\Seeders\DatabaseSeeder;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMusicasTable extends Migration
+class CreateMusicsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +15,7 @@ class CreateMusicasTable extends Migration
      */
     public function up()
     {
-        Schema::create('musicas', function (Blueprint $table) {
+        Schema::create('music', function (Blueprint $table) {
             $table->id();
             $table->string('name_string');
             $table->decimal('price_decimal');
@@ -28,6 +30,8 @@ class CreateMusicasTable extends Migration
             $table->string('song_spotify_uri_string');
             $table->timestamps();
         });
+
+        Artisan::call("db:seed");
     }
 
     /**
@@ -37,6 +41,6 @@ class CreateMusicasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('musicas');
+        Schema::dropIfExists('musics');
     }
 }

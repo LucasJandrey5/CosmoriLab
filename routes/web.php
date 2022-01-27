@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use App\Models\Musica;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -10,9 +11,10 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/login', function () {
-    return view('login');
-});
+Route::get('/login', [UserController::class, 'login'])->name('login.page');
+
+Route::post('/login', [UserController::class, 'auth'])->name('auth.user');
+
 
 Route::get('/register', function () {
     return view('register');
@@ -28,7 +30,7 @@ Route::get('/analytics', function () {
 
 Route::get('/adm', function () {
     return view('admin.index');
-});
+})->middleware('auth:admin');
 
 Route::get('/listUserData', function () {
     //Recebe todos os dados dos usuarios
