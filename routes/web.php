@@ -1,12 +1,13 @@
 <?php
 
+use App\Models\Musica;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Route::get('/userList', function () {
@@ -17,16 +18,22 @@ Route::get('/analytics', function () {
     return view('analytics');
 });
 
-Route::get('/ADM-AREA', function () {
+Route::get('/adm', function () {
     return view('admin.index');
 });
 
-Route::get('/listData', function () {
-    //$users = DB::table('users')->get();
+Route::get('/listUserData', function () {
+    //Recebe todos os dados dos usuarios
     $users = User::all();
+    //Envia para a pagina lista usuarios os dados dos usuarios
+    return view('admin.listUserData', ['users' => $users]);
+});
 
-    //dd($users);
-    return view('admin.listData', ['users' => $users, 'currentPage' => 1]);
+Route::get('/listMusicData', function () {
+    $musics = Musica::all();
+
+    //Envia para a pagina lista usuarios os dados dos usuarios
+    return view('admin.listMusicData', ['musics' => $musics]);
 });
 
 Route::get('/createNewUser', function () {
@@ -45,8 +52,4 @@ Route::post('/createdNewUser', function (Request $request) {
     ]);
 
     echo 'Usuario criado com sucesso.';
-});
-
-Route::get('/teste', function () {
-    return view('admin.login');
 });

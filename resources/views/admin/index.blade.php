@@ -62,8 +62,8 @@
                         </a>
                         <div class="collapse" id="collapseDatabase" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="listData?func=users">Users</a>
-                                <a class="nav-link" href="layout-sidenav-light.html">Musics</a>
+                                <a class="nav-link" href="listUserData">Users</a>
+                                <a class="nav-link" href="listMusicData">Musics</a>
                             </nav>
                         </div>
                         <!-- Interface -->

@@ -2,6 +2,7 @@
     $showingCount = 0;
     $itemsPerPage = 15;
     $totalPagesToShow = 1;
+    $currentPage = 1;
 ?>
 
 <!DOCTYPE html>
@@ -68,8 +69,8 @@
                             <td>'.$item->name_string.'</td>
                             <td>'.$item->email_string.'</td>
                             <td>'.$item->access_level_enum.'</td>
-                            <td>'.$item->phone_string.'</td>
                             <td>'.$item->birth_date.'</td>
+                            <td>'.$item->phone_string.'</td>
                             <td>'.$item->created_at.'</td>
                             <td>'.$item->updated_at.'</td>
                             <td>
