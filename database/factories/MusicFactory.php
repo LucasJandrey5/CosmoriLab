@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Models\Album;
 
 class MusicFactory extends Factory
 {
@@ -15,6 +16,7 @@ class MusicFactory extends Factory
     public function definition()
     {
         return [
+            'id_album' => rand(1, Album::all()->count()),
             'name_string' => $this->faker->name(),
             'price_decimal' => mt_rand(1, 1000)/10,
             'gender_enum' => $this->faker->randomElement(['eletronica', 'rock', 'alternativo','pop', 'ambiente', 'filme', 'acustico', 'funk', 'classico', 'reggae', 'podcasts', 'sertanejo', 'blues', 'kids', 'audiobooks']),

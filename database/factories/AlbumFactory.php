@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Models\User;
 
 class AlbumFactory extends Factory
 {
@@ -15,7 +16,9 @@ class AlbumFactory extends Factory
     public function definition()
     {
         return [
+            'id_user' => rand(1, User::all()->count()),
             'name_string' => $this->faker->name(),
+            'albumType_string' => $this->faker->randomElement(['single', 'ep', 'album', 'cd']),
             'price_decimal' => mt_rand(1, 1000)/10,
             'gender_enum' => $this->faker->randomElement(['eletronica', 'rock', 'alternativo','pop', 'ambiente', 'filme', 'acustico', 'funk', 'classico', 'reggae', 'podcasts', 'sertanejo', 'blues', 'kids', 'audiobooks']),
             'description_string' => $this->faker->realText(),

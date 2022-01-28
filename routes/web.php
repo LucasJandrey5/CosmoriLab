@@ -31,7 +31,6 @@ Route::middleware(['admin'])->group(function () {
 
     Route::get('/createNewUser', [AdminController::class, 'PageCreateNewUser'])->name('createNewUser.page');
 
-
     Route::post('/createdNewUser', function (Request $request) {
         //Criando novo usuario pelo admin panel no banco de dados
         User::create([

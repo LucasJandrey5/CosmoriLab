@@ -15,10 +15,12 @@ class CreateAlbumsTable extends Migration
      */
     public function up()
     {
-        Schema::create('album', function (Blueprint $table) {
+        Schema::create('albums', function (Blueprint $table) {
             $table->id();
-            $table->foreign('id')->references('id')->on('users');
+            $table->unsignedBigInteger('id_user');
+            $table->foreign('id_user')->references('id')->on('users');
             $table->string('name_string');
+            $table->enum('albumType_string', ['single', 'ep', 'album', 'cd']);
             $table->decimal('price_decimal');
             $table->enum('gender_enum', ['eletronica', 'rock', 'alternativo','pop', 'ambiente', 'filme', 'acustico', 'funk', 'classico', 'reggae', 'podcasts', 'sertanejo', 'blues', 'kids', 'audiobooks']);
             $table->string('description_string');
@@ -32,7 +34,6 @@ class CreateAlbumsTable extends Migration
             $table->timestamps();
         });
 
-        Artisan::call("db:seed");
     }
 
     /**
@@ -42,6 +43,6 @@ class CreateAlbumsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('albums');
+        Schema::dropIfExists('album');
     }
 }
