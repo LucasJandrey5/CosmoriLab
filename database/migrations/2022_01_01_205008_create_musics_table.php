@@ -17,6 +17,8 @@ class CreateMusicsTable extends Migration
     {
         Schema::create('music', function (Blueprint $table) {
             $table->id();
+            $table->id_user();
+            $table->id_album();
             $table->string('name_string');
             $table->decimal('price_decimal');
             $table->enum('gender_enum', ['eletronica', 'rock', 'alternativo','pop', 'ambiente', 'filme', 'acustico', 'funk', 'classico', 'reggae', 'podcasts', 'sertanejo', 'blues', 'kids', 'audiobooks']);
