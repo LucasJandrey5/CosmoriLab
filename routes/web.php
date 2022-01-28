@@ -20,6 +20,9 @@ Route::post('/register_auth', [UserController::class, 'register_auth'])->name('r
 
 Route::get('/log-out', [UserController::class, 'logout'])->name('log-out.user');
 
+Route::get('/profile/{id}', function ($id) {
+    return view('publicProfilePage', ['id_user' => $id]);
+});
 
 
 Route::middleware(['admin'])->group(function () {

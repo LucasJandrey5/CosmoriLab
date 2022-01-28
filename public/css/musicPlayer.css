@@ -1,0 +1,32 @@
+.music_cover {
+    width: 70px;
+    height: auto;
+    margin: 10px;
+}
+
+.music_name {
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.composer_name {
+    font-size: 12px;
+}
+
+.mediaPlayer_icons {
+    cursor: pointer;
+    color: #757575 !important;
+    font-size: 20px;
+    width: 20px;
+    margin: 10px;
+
+}
+
+.grayColor {
+    color: #757575 !important;
+}
+
+.margin-2 {
+    margin: 2px;
+}

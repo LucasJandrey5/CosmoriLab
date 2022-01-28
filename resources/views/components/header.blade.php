@@ -286,5 +286,4 @@ function fullNameToFirstName($fullName, $checkFirstNameLength=TRUE)
             </div>
         </div>
     </header>
-    <div style="height: 700px"> </div>
 </div>

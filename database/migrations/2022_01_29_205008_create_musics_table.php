@@ -32,6 +32,8 @@ class CreateMusicsTable extends Migration
             $table->string('song_spotify_uri_string');
             $table->timestamps();
         });
+
+        Artisan::call('db:seed');
     }
 
     /**

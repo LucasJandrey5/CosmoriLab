@@ -19,9 +19,10 @@ class UserFactory extends Factory
             'email_string' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$MPpdkXLCOxsmHDQ7NG3m1.JwJjZWInVfMJaT2RWsl1FoE4okxZmBe', // password
-            'phone_string' => Str::random(10),
+            'phone_string' => $this->faker->numerify('(##) #####-####'),
             'access_level_enum' => $this->faker->randomElement(['ADM', 'EMPLOYEE' ,'USER', 'COMPOSER']),
             'birth_date' => $this->faker->date('Y-m-d'),
+            'uri_photo_string' => 'https://fopiess.org.br/wp-content/uploads/2018/01/default1.jpg',
             'remember_token' => Str::random(10)
         ];
     }
