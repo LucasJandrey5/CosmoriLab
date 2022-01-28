@@ -47,7 +47,7 @@ return [
     'ends_with' => 'O :attribute deve acabar com um de: :values.',
     'enum' => 'O :attribute selecionado é inválido.',
     'exists' => 'O :attribute selecionado é inválido.',
-    'file' => 'O :attribute deve ser yn arquivo.',
+    'file' => 'O :attribute deve ser um arquivo.',
     'filled' => 'O campo do :attribute deve ter um valor.',
     'gt' => [
         'numeric' => 'O :attribute must be greater than :value.',

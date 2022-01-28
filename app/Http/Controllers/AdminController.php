@@ -27,6 +27,13 @@ class AdminController extends Controller
         return view('admin.listMusicData', ['musics' => $musics]);
     }
 
+    public function PageListAlbumData(){
+        //Recebe todos os dados das músicas
+        $albums = Album::all();
+        //Envia para a pagina lista usuarios os dados dos usuarios
+        return view('admin.listMusicData', ['albums' => $albums]);
+    }
+
     public function PageCreateNewUser(){
         return view('admin.createNewUser');
     }
