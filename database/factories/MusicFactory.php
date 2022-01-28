@@ -16,7 +16,7 @@ class MusicFactory extends Factory
     {
         return [
             'name_string' => $this->faker->name(),
-            'price_decimal' => mt_rand(100, 100000)/10,
+            'price_decimal' => mt_rand(1, 1000)/10,
             'gender_enum' => $this->faker->randomElement(['eletronica', 'rock', 'alternativo','pop', 'ambiente', 'filme', 'acustico', 'funk', 'classico', 'reggae', 'podcasts', 'sertanejo', 'blues', 'kids', 'audiobooks']),
             'description_string' => $this->faker->realText(),
             'duration_time' => $this->returnRandomTime(),

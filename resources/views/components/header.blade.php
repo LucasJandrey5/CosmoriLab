@@ -60,10 +60,10 @@ function fullNameToFirstName($fullName, $checkFirstNameLength=TRUE)
                                             <li><a href="#">Japanese</a></li>
                                         </ul>
                                     </li>
-                                    <li> <a href="#">$ US dollar<i class="fas fa-chevron-down"></i></a>
+                                    <li> <a href="#">$ BRL Real<i class="fas fa-chevron-down"></i></a>
                                         <ul>
                                             <li><a href="#">EUR Euro</a></li>
-                                            <li><a href="#">BRL Real</a></li>
+                                            <li><a href="#">US dollar</a></li>
                                             <li><a href="#">JPY Japanese Yen</a></li>
                                         </ul>
                                     </li>
@@ -73,7 +73,7 @@ function fullNameToFirstName($fullName, $checkFirstNameLength=TRUE)
                                 <div class="user_icon"><img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1560918647/user.svg" alt=""></div>
                                 <?php
                                     if(Auth::check()){
-                                        echo '<div><a href="log-out">'.fullNameToFirstName(Auth::user()->name_string).'</a></div>
+                                        echo '<div><a href="#">'.fullNameToFirstName(Auth::user()->name_string).'</a></div>
                                               <div><a href="log-out">Deslogar-se</a></div>
                                         ';
                                     } else {
