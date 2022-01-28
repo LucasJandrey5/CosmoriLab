@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <link rel="stylesheet" href="{{ URL::asset('css/musicPlayer.css') }}">
 
 <nav class="navbar bg-light fixed-bottom" id='container' style="display: none;">

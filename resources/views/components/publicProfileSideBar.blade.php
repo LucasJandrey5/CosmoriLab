@@ -1,11 +1,33 @@
 <?php
 
+use App\Models\Album;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 
 $user = User::find($idUser);
+
+$user = DB::table('users')
+            ->join('albums', 'users.id', '=', 'albums.id_user')
+            ->select('users.*', 'albums.albumType_String')
+            ->where('users.id', '=', $idUser)
+            ->get();
+
+$albums = DB::table('albums')
+            ->select('albums.*')
+            ->where('albums.id_user', '=', $idUser)
+            ->get();
+
+$musics = DB::table('users')
+            ->join('albums', 'users.id', '=', 'albums.id_user')
+            ->join('music', 'albums.id', '=', 'music.id_album')
+            ->select('music.*')
+            ->where('albums.id_user', '=', $idUser)
+            ->get();
+
+
+
+dd($musics);
 ?>
-
-
 
 <link rel="stylesheet" href="https://allyoucan.cloud/cdn/icofont/1.0.1/icofont.css" integrity="sha384-jbCTJB16Q17718YM9U22iJkhuGbS0Gd2LjaWb4YJEZToOPmnKDjySVa323U+W7Fv" crossorigin="anonymous">
 <link rel="stylesheet" href="{{ URL::asset('css/publicProfileSideBar.css') }}">
@@ -75,71 +97,6 @@ $user = User::find($idUser);
                                     </div>
                                 </div>
 
-                            </div>
-                        </div>
-                        <div class="bg-white card mb-4 order-list shadow-sm">
-                            <div class="gold-members p-4">
-                                <a href="#">
-                                </a>
-                                <div class="media">
-                                    <a href="#">
-                                        <img class="mr-4" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Generic placeholder image">
-                                    </a>
-                                    <div class="media-body">
-                                        <a href="#">
-                                            <span class="float-right text-info">Delivered on Mon, Nov 12, 7:18 PM <i class="icofont-check-circled text-success"></i></span>
-                                        </a>
-                                        <h6 class="mb-2">
-                                            <a href="#"></a>
-                                            <a href="#" class="text-black">Jimmy's Famous American Tavern</a>
-                                        </h6>
-                                        <p class="text-gray mb-1"><i class="icofont-location-arrow"></i> 1733 Ocean Ave, Santa Monica, CA 90401, USA
-                                        </p>
-                                        <p class="text-gray mb-3"><i class="icofont-list"></i> ORDER #25102589748 <i class="icofont-clock-time ml-2"></i> Mon, Nov 12, 6:26 PM</p>
-                                        <p class="text-dark">Veg Masala Roll x 5, Veg Burger x 1, Veg Penne Pasta in Red Sauce x 1
-                                        </p>
-                                        <hr>
-                                        <div class="float-right">
-                                            <a class="btn btn-sm btn-outline-primary" href="#"><i class="icofont-headphone-alt"></i> HELP</a>
-                                            <a class="btn btn-sm btn-primary" href="#"><i class="icofont-refresh"></i> REORDER</a>
-                                        </div>
-                                        <p class="mb-0 text-black text-primary pt-2"><span class="text-black font-weight-bold"> Total Paid:</span> $500
-                                        </p>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="bg-white card  order-list shadow-sm">
-                            <div class="gold-members p-4">
-                                <a href="#">
-                                </a>
-                                <div class="media">
-                                    <a href="#">
-                                        <img class="mr-4" src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="Generic placeholder image">
-                                    </a>
-                                    <div class="media-body">
-                                        <a href="#">
-                                            <span class="float-right text-info">Delivered on Mon, Nov 12, 7:18 PM <i class="icofont-check-circled text-success"></i></span>
-                                        </a>
-                                        <h6 class="mb-2">
-                                            <a href="#"></a>
-                                            <a href="#" class="text-black">The Famous Restaurant</a>
-                                        </h6>
-                                        <p class="text-gray mb-1"><i class="icofont-location-arrow"></i> 953 S Main St, Centerville, OH 45459, USA
-                                        </p>
-                                        <p class="text-gray mb-3"><i class="icofont-list"></i> ORDER #25102589748 <i class="icofont-clock-time ml-2"></i> Mon, Nov 12, 6:26 PM</p>
-                                        <p class="text-dark">Veg Masala Roll x 5, Veg Penne Pasta in Red Sauce x 1
-                                        </p>
-                                        <hr>
-                                        <div class="float-right">
-                                            <a class="btn btn-sm btn-outline-primary" href="#"><i class="icofont-headphone-alt"></i> HELP</a>
-                                            <a class="btn btn-sm btn-primary" href="#"><i class="icofont-refresh"></i> REORDER</a>
-                                        </div>
-                                        <p class="mb-0 text-black text-primary pt-2"><span class="text-black font-weight-bold"> Total Paid:</span> $420
-                                        </p>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
