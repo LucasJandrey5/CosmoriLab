@@ -114,8 +114,6 @@
     }
 
     function ProgressChanged() {
-        if(player.getPlayerState() != 1)
-            player.pauseVideo();
         var val = document.getElementById('progress_bar').value;
         var current = val / 100 * player.getDuration();
         player.seekTo(Math.round(current));
