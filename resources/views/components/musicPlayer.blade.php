@@ -1,52 +1,55 @@
 <?php
 
 ?>
-
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="{{ URL::asset('css/musicPlayer.css') }}">
 
-<nav class="navbar bg-light fixed-bottom" id='container' style="display: none;">
-    <div class=''>
-        <input type="range" id="progress_bar" name="progress_bar" min="0" max="100">
+<nav class=" fixed-bottom" id='container' style="display: none;">
+    <div class="slidecontainer">
+        <input onChange='ProgressChanged()' type="range" min="1" max="100" value="0" step="0.0001" class="slider" id="progress_bar">
     </div>
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="music_cover_box">
-                <img class="music_cover" src="https://cdns-images.dzcdn.net/images/cover/aac47589aff99a34cacc267b793b20c8/500x500.jpg">
+    <div class="navbar bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="music_cover_box">
+                    <img class="music_cover" src="https://cdns-images.dzcdn.net/images/cover/aac47589aff99a34cacc267b793b20c8/500x500.jpg">
+                </div>
+
+                <div class="bg-red flex-column align-items-center">
+                    <div>
+                        <span class="music_name align-middle">Aí Eu bebo</span>
+                    </div>
+                    <div>
+                        <span class="composer_name">Maiara e Maraisa</span>
+                    </div>
+                </div>
             </div>
 
-            <div class="bg-red flex-column align-items-center">
-                <div>
-                    <span class="music_name align-middle">Aí Eu bebo</span>
+            <div class="row d-flex align-items-center">
+                <div class="mediaPlayer_box">
+                    <a href='#' onclick="someFunction(); return false;"><i class="fas fa-forward mediaPlayer_icons fa-rotate-180"></i></a>
+                    <a href='#' id="playButtom" onclick="playVideo(); return false;" style="display: inline"><i class="fas fa-play mediaPlayer_icons"></i></a>
+                    <a href='#' id="pauseButtom" onclick="pauseVideo(); return false;" style="display: none;"><i class="fas fa-pause mediaPlayer_icons"></i></a>
+                    <a href='#' onclick="someFunction(); return false;"><i class="fas fa-forward mediaPlayer_icons"></i></a>
+                </div>
+            </div>
+
+            <div class="row d-flex align-items-center">
+                <div class="m-2">
+                    <span id='currentTime' class="margin-5">00:00</span>
+                    <span class="margin-5 grayColor">-</span>
+                    <span id='totalTime' class="margin-5 grayColor">02:35</span>
                 </div>
                 <div>
-                    <span class="composer_name">Maiara e Maraisa</span>
+                    <a id="volumeUp" onclick="muteVolume(); return false;" style="display: inline"><i class="fas fa-volume-up mediaPlayer_icons"></i></a>
+                    <a id="volumeMute" onclick="upVolume(); return false;" style="display: none;"><i class="fas fa-volume-mute mediaPlayer_icons"></i></a>
+                    <a><i class="fas fa-download mediaPlayer_icons"></i></a>
                 </div>
-            </div>
-        </div>
-
-        <div class="row d-flex align-items-center">
-            <div class="mediaPlayer_box">
-                <a href='#' onclick="someFunction(); return false;"><i class="fas fa-forward mediaPlayer_icons fa-rotate-180"></i></a>
-                <a href='#' id="playButtom" onclick="playVideo(); return false;" style="display: inline"><i class="fas fa-play mediaPlayer_icons"></i></a>
-                <a href='#' id="pauseButtom" onclick="pauseVideo(); return false;" style="display: none;"><i class="fas fa-pause mediaPlayer_icons"></i></a>
-                <a href='#' onclick="someFunction(); return false;"><i class="fas fa-forward mediaPlayer_icons"></i></a>
-            </div>
-        </div>
-
-        <div class="row d-flex align-items-center">
-            <div class="m-2">
-                <span id='currentTime' class="margin-5">00:00</span>
-                <span class="margin-5 grayColor">-</span>
-                <span id='totalTime' class="margin-5 grayColor">02:35</span>
-            </div>
-            <div>
-                <a id="volumeUp" onclick="muteVolume(); return false;" style="display: inline"><i class="fas fa-volume-up mediaPlayer_icons"></i></a>
-                <a id="volumeMute" onclick="upVolume(); return false;" style="display: none;"><i class="fas fa-volume-mute mediaPlayer_icons"></i></a>
-                <a><i class="fas fa-download mediaPlayer_icons"></i></a>
             </div>
         </div>
     </div>
 </nav>
+
 
 <div id="ytplayer">
     <iframe width="0" height="0" src="https://www.youtube.com/watch?v=QhsIg4ZsA6w" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
@@ -66,7 +69,7 @@
         player = new YT.Player('ytplayer', {
             height: '0',
             width: '0',
-            videoId: youtube_parser('https://www.youtube.com/watch?v=QhsIg4ZsA6w&ab_channel=MaiaraeMaraisa'),
+            videoId: youtube_parser('https://www.youtube.com/watch?v=KY_6FYsX6wo&ab_channel=MaiaraeMaraisa'),
             events: {
                 'onReady': onPlayerReady
             }
@@ -82,8 +85,8 @@
 
     function onPlayerReady() {
         document.getElementById('container').style.display = 'inline';
-        var duration = FormateSeconds(player.getDuration());
-        document.getElementById("totalTime").innerHTML = duration;
+        var totalDuration = FormateSeconds(player.getDuration());
+        document.getElementById("totalTime").innerHTML = totalDuration;
     }
 
     function playVideo() {
@@ -110,21 +113,35 @@
         document.getElementById('volumeMute').style.display = 'inline';
     }
 
+    function ProgressChanged() {
+        if(player.getPlayerState() != 1)
+            player.pauseVideo();
+        var val = document.getElementById('progress_bar').value;
+        var current = val / 100 * player.getDuration();
+        player.seekTo(Math.round(current));
+        console.log(current);
+    }
+
     window.setInterval(function() {
-        //Aqui controla o tempo da musica mostrado na tela
-        var currentTimeInt = Math.round(player.getCurrentTime());
-        if (!player) return;
-        var formatted = FormateSeconds(currentTimeInt);
-        document.getElementById("currentTime").innerHTML = formatted;
+        if(player.getPlayerState() == 1){
+            //Aqui controla o tempo da musica mostrado na tela
+            var currentTimeInt = Math.round(player.getCurrentTime());
+            if (!player) return;
+            var formatted = FormateSeconds(currentTimeInt);
+            document.getElementById("currentTime").innerHTML = formatted;
 
-        //Aqui controla o slider que mostra que parte ta na musica
-        var currentTimeFloat = Math.round(player.getCurrentTime(), 2);
+            //Aqui controla o slider que mostra que parte ta na musica
+            var currentTimeFloat = player.getCurrentTime();
+            var totalDuration = player.getDuration();
+            percent = currentTimeFloat * 100 / totalDuration;
+            console.log(currentTimeFloat);
 
+            document.getElementById('progress_bar').value = percent;
 
-        document.getElementById('progress_bar').style.display = 'inline';
-    }, 10);
+        }
+    }, 1000);
 
-    function FormateSeconds(number){
+    function FormateSeconds(number) {
         var s = number % 60;
         if (s < 10)
             s = '0' + s;
