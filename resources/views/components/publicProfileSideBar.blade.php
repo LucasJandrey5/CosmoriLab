@@ -10,7 +10,7 @@ $user = DB::table('users')
             ->join('albums', 'users.id', '=', 'albums.id_user')
             ->select('users.*', 'albums.albumType_String')
             ->where('users.id', '=', $idUser)
-            ->get();
+            ->get()[0];
 
 $albums = DB::table('albums')
             ->select('albums.*')
@@ -24,9 +24,6 @@ $musics = DB::table('users')
             ->where('albums.id_user', '=', $idUser)
             ->get();
 
-
-
-dd($musics);
 ?>
 
 <link rel="stylesheet" href="https://allyoucan.cloud/cdn/icofont/1.0.1/icofont.css" integrity="sha384-jbCTJB16Q17718YM9U22iJkhuGbS0Gd2LjaWb4YJEZToOPmnKDjySVa323U+W7Fv" crossorigin="anonymous">

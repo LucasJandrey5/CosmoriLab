@@ -5,8 +5,11 @@
 <link rel="stylesheet" href="{{ URL::asset('css/musicPlayer.css') }}">
 
 <nav class="navbar bg-light fixed-bottom" id='container' style="display: none;">
+    <div class=''>
+        <input type="range" id="progress_bar" name="progress_bar" min="0" max="100">
+    </div>
     <div class="container">
-        <div class="row d-flex align-items-center">
+        <div class="row align-items-center">
             <div class="music_cover_box">
                 <img class="music_cover" src="https://cdns-images.dzcdn.net/images/cover/aac47589aff99a34cacc267b793b20c8/500x500.jpg">
             </div>
@@ -79,6 +82,8 @@
 
     function onPlayerReady() {
         document.getElementById('container').style.display = 'inline';
+        var duration = FormateSeconds(player.getDuration());
+        document.getElementById("totalTime").innerHTML = duration;
     }
 
     function playVideo() {
@@ -106,14 +111,27 @@
     }
 
     window.setInterval(function() {
+        //Aqui controla o tempo da musica mostrado na tela
+        var currentTimeInt = Math.round(player.getCurrentTime());
         if (!player) return;
-        var time = Math.round(player.getCurrentTime());
-        var s = time % 60;
+        var formatted = FormateSeconds(currentTimeInt);
+        document.getElementById("currentTime").innerHTML = formatted;
+
+        //Aqui controla o slider que mostra que parte ta na musica
+        var currentTimeFloat = Math.round(player.getCurrentTime(), 2);
+
+
+        document.getElementById('progress_bar').style.display = 'inline';
+    }, 10);
+
+    function FormateSeconds(number){
+        var s = number % 60;
         if (s < 10)
             s = '0' + s;
-        var m = Math.floor(time / 60);
+        var m = Math.floor(number / 60);
         if (m < 10)
             m = '0' + m;
-        document.getElementById("currentTime").innerHTML = m + ':' + s;
-    }, 10);
+        var formatted = m + ':' + s;
+        return formatted;
+    }
 </script>
