@@ -24,6 +24,10 @@ Route::get('/profile/{id}', function ($id) {
     return view('publicProfilePage', ['id_user' => $id]);
 });
 
+Route::get('/album/{id}', function ($id) {
+    return view('publicAlbumPage', ['id_album' => $id]);
+});
+
 
 Route::middleware(['admin'])->group(function () {
     Route::get('/adm', [AdminController::class, 'ADMPage'])->name('adm.page');

@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
 
 <div>
     <x-header/>
-    <x-publicProfileSideBar idUser='<?php echo $id_user; ?>'/>
+    <x-publicAlbumSideBar idAlbum='<?php echo $id_album; ?>'/>
     <x-musicPlayer />
 </div>
 
