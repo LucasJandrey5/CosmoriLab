@@ -74,12 +74,12 @@ function fullNameToFirstName($fullName, $checkFirstNameLength=TRUE)
                                 <?php
                                     if(Auth::check()){
                                         echo '<div><a href="#">'.fullNameToFirstName(Auth::user()->name_string).'</a></div>
-                                              <div><a href="log-out">Deslogar-se</a></div>
+                                              <div><a href="/log-out">Deslogar-se</a></div>
                                         ';
                                     } else {
                                         echo '
-                                        <div><a href="register">Registrar-se</a></div>
-                                        <div><a href="login">Login</a></div>
+                                        <div><a href="/register">Registrar-se</a></div>
+                                        <div><a href="/login">Login</a></div>
                                         ';
                                     }
                                 ?>

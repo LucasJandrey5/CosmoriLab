@@ -18,52 +18,37 @@ $count = 1;
 
 foreach ($musics as $music) {
     echo '
-            <div class="mb-4 px-4 p-2 hover_gray d-flex justify-content-between shadow-sm">
-            <div class=" d-flex align-items-center" style="flex-grow: 3;">
-                <a href="#" id="playButtom" onclick=" ; return false;"><i class="fas fa-play-circle play_profile_icon"></i></a>
-                <div>
-                    <span class="index_text">' . $count . '</span>
-                </div>
-                <div class="flex-column align-items-center">
-                    <div>
-                        <span class="music_title">' . $music->name_string . '</span>
-                    </div>
-                    
-                </div>
-
-                <div class="d-flex justify-content-between " style="margin-left: auto">
-
-                <div class="d-flex " style="height: 75px; margin-inline: 15px; margin-left: auto; ">
-                    <div class="my_vr"></div>
-                </div>
-
-                <div class="flex-column align-items-center" style="margin: auto; margin-left: auto">
-                    <div>
-                        <span class="price_text">Preço: R$' . $music->price_decimal . '</span>
-                    </div>
-                    <div>
-                        <span class="release_date_text">Release Date: ' . $music->release_date . '</span>
-                    </div>
-                </div>
-                </div>
-            </div>
-
-            <div class="media d-flex align-items-center" style="margin-left: 20px">
-                <div class="float-right flex-column justify-content-between mr-4">
-                    <div>
-                        <a class="btn btn-sm btn-outline-primary mb-1" href="#"><i class="fas fa-shopping-cart"></i> Adicionar ao Carrinho</a>
-                    </div>
-                    <div>
-                        <a class="btn btn-sm btn-primary mt-1" href="#"><i class="icofont-refresh"></i> Comprar</a>
+            
+    <div class="col-lg-3 col-md-4 col-sm-12">
+                    <div class="card">
+                        <div class="file">
+                            <a href="javascript:void(0);">
+                                <div class="hover">
+                                    <button type="button" class="btn btn-icon btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                                <div class="image">
+                                    <img src="' . $music->cover_uri_string . '" alt="img" class="img-fluid">
+                                    
+                                </div>
+                                <div class="file-name">
+                                    <a href="track/' . $music->id . '">
+                                    <p class="m-b-5 text-muted" style="margin-bottom: 1px;">' . $count . '. ' . $music->name_string . '</p></a>
+                                    <small class="date text-muted"> ' . $music->duration_time . ' </small>
+                                    <small> R$' . $music->price_decimal . '<span class="date text-muted">' . $music->release_date . '</span></small>
+                                    <small> Tocada ' . $music->amount_played_int . ' vezes </small>
+                                </div>
+                                <div class="file-name d-flex justify-content-center">
+                                    <a href=""><i class="fas fa-play-circle right_icons"></i></a>
+                                    <a href=""><i class="fas fa-download right_icons"></i></a>
+                                    <a href=""><i class="fas fa-ellipsis-h right_icons"></i></a>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                <div class="">
-                    <a><i class="fas fa-download right_icons"></i></a>
-                    <a><i class="fas fa-ellipsis-h right_icons"></i></a>
-                </div>
-            </div>
-        </div>
         ';
     $count++;
 }
