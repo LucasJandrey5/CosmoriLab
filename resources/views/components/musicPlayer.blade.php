@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="{{ URL::asset('css/musicPlayer.css') }}">
 
-<nav class=" fixed-bottom" id='container' style="display: none;">
+<nav class="musicPlayer_container fixed-bottom" id='container' style="display: none;">
     <div class="slidecontainer">
         <input onChange='ProgressChanged()' type="range" min="1" max="100" value="0" step="0.0001" class="slider" id="progress_bar">
     </div>
