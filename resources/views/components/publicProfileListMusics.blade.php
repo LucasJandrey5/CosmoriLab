@@ -25,10 +25,17 @@ $musics = DB::table('users')
 $count = 1;
 
 foreach ($musics as $music) {
+    if($count == 6)
+    return;
+
+    $url = "'".$music->song_youtube_url_string."'";
+    $music_name = "'".$music->name_string."'";
+    $composer_name = "'".$user->name_string."'";
+
     echo '
             <div class="mb-4 px-4 p-2 hover_gray d-flex justify-content-between shadow-sm">
             <div class=" d-flex align-items-center" style="flex-grow: 3;">
-                <a href="#" id="playButtom" onclick=" ; return false;"><i class="fas fa-play-circle play_profile_icon"></i></a>
+                <a href="#" id="" onclick="changeMusic('.$url.', '.$music_name.', '.$composer_name.')"><i class="fas fa-play-circle play_profile_icon"></i></a>
                 <div>
                     <span class="index_text">' . $count . '</span>
                 </div>

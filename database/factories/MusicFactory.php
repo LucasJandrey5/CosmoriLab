@@ -27,7 +27,7 @@ class MusicFactory extends Factory
             'amount_purchases_int' => $this->faker->randomNumber(4, false),
             'amount_played_int' => $this->faker->randomNumber(7, false),
             'cover_uri_string' => 'https://i1.sndcdn.com/artworks-7OzaunxRWGKtRzna-ussynQ-t500x500.jpg',
-            'song_spotify_uri_string' => 'https://open.spotify.com/track/7w87IxuO7BDcJ3YUqCyMTT?si=2b9f777080954108',
+            'song_youtube_url_string' => 'https://www.youtube.com/watch?v=g8VSOYAnbEM&list=RDKY_6FYsX6wo&index=3&ab_channel=Mar%C3%ADliaMendon%C3%A7a',
         ];
     }
 

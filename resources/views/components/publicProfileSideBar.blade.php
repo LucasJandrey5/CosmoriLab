@@ -4,6 +4,7 @@ use App\Models\Album;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Music;
+use Illuminate\Support\Facades\Auth;
 
 $user = User::find($idUser);
 
@@ -37,14 +38,20 @@ $albums = DB::table('albums')
                                 <h6 class="mb-2"><?php echo $user->name_string ?></h6>
                                 <p class="mb-1"><?php echo $user->phone_string ?></p>
                                 <p><?php echo $user->email_string ?></p>
-                                <p class="mb-0 text-black font-weight-bold"><a class="text-primary mr-3" data-toggle="modal" data-target="#edit-profile-modal" href="#"><i class="icofont-ui-edit"></i> EDIT</a></p>
+                                <?php
+                                if (Auth::check()) {
+                                    if ($user->id == Auth::user()->id) {
+                                        echo '<p class="mb-0 text-black font-weight-bold"><a class="text-primary mr-3" data-toggle="modal" data-target="#edit-profile-modal" href="#"><i class="icofont-ui-edit"></i> EDIT</a></p>';
+                                    }
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
                 </div>
                 <ul class="nav nav-tabs flex-column border-0 pt-4 pl-4 pb-4" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link" id="albums-tab" data-toggle="tab" href="#" role="tab" aria-controls="albums" aria-selected="false"><i class="fas fa-archive"></i> Álbums</a>
+                        <a class="nav-link" id="albums-tab" data-toggle="tab" href="/album/<?php echo $user->id ?>" role="tab" aria-controls="albums" aria-selected="false"><i class="fas fa-archive"></i> Álbums</a>
                         <a class="nav-link" id="musics-tab" data-toggle="tab" href="#" role="tab" aria-controls="musics" aria-selected="false"><i class="fas fa-music"></i> Músicas</a>
 
                     </li>
@@ -54,14 +61,18 @@ $albums = DB::table('albums')
         <div class="col-md-9">
             <div class="osahan-account-page-right shadow-sm bg-white p-4 h-100">
                 <div class="tab-content" id="myTabContent">
-                    <div class="tab-pane  fade  active show" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                    <div class="tab-pane fade  active show " id="orders" role="tabpanel" aria-labelledby="orders-tab">
                         <h4 class="font-weight-bold mt-0 mb-4">Últimas Músicas Desse Compositor</h4>
 
                         <div class="bg-white card mb-4 order-list border-0">
 
 
-                            <x-publicProfileListMusics idUser='<?php echo $idUser; ?>'/>
+                            <x-publicProfileListMusics idUser='<?php echo $idUser; ?>' />
 
+                        </div>
+
+                        <div>
+                            <a class="btn btn-sm btn-primary mt-1" href="#"><i class="icofont-refresh"></i> Ver mais</a>
                         </div>
                     </div>
                 </div>

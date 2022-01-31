@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="{{ URL::asset('css/musicPlayer.css') }}">
 
-<nav class="musicPlayer_container fixed-bottom" id='container' style="display: none;">
+<nav class="musicPlayer_container fixed-bottom" id='mediaPlayerContainer' style="display: none;">
     <div class="slidecontainer">
         <input onChange='ProgressChanged()' type="range" min="1" max="100" value="0" step="0.0001" class="slider" id="progress_bar">
     </div>
@@ -17,10 +17,10 @@
 
                 <div class="bg-red flex-column align-items-center">
                     <div>
-                        <span class="music_name align-middle">Aí Eu bebo</span>
+                        <span id="music_name" class="music_name align-middle">Selecione uma música para tocar</span>
                     </div>
                     <div>
-                        <span class="composer_name">Maiara e Maraisa</span>
+                        <span id="composer_name" class="composer_name"></span>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                 <div class="m-2">
                     <span id='currentTime' class="margin-5">00:00</span>
                     <span class="margin-5 grayColor">-</span>
-                    <span id='totalTime' class="margin-5 grayColor">02:35</span>
+                    <span id='totalTime' class="margin-5 grayColor">00:00</span>
                 </div>
                 <div>
                     <a id="volumeUp" onclick="muteVolume(); return false;" style="display: inline"><i class="fas fa-volume-up mediaPlayer_icons"></i></a>
@@ -65,16 +65,17 @@
 
     var player;
 
+    const abortController = new AbortController();
+
     function onYouTubePlayerAPIReady() {
         player = new YT.Player('ytplayer', {
             height: '0',
             width: '0',
-            videoId: youtube_parser('https://www.youtube.com/watch?v=KY_6FYsX6wo&ab_channel=MaiaraeMaraisa'),
             events: {
                 'onReady': onPlayerReady
             }
         });
-
+        player.setPlaybackQuality('small');
     }
 
     function youtube_parser(url) {
@@ -83,8 +84,59 @@
         return (match && match[7].length == 11) ? match[7] : false;
     }
 
+    function changeMusic(u, music, composer) {
+        MediaPlayerStarted();
+        document.getElementById("music_name").innerHTML = music;
+        document.getElementById("composer_name").innerHTML = composer;
+
+        var video_id = youtube_parser(u);
+        player.loadVideoById(video_id, 0, "small")
+        playVideo();
+    }
+
     function onPlayerReady() {
-        document.getElementById('container').style.display = 'inline';
+        document.getElementById('mediaPlayerContainer').style.display = 'inline';
+    }
+
+    function ProgressChanged() {
+        var val = document.getElementById('progress_bar').value;
+        var current = val / 100 * player.getDuration();
+        player.seekTo(Math.round(current));
+    }
+
+    window.setInterval(function() {
+        if (player.getPlayerState() == 1) {
+            //Aqui controla o tempo da musica mostrado na tela
+            var currentTimeInt = Math.round(player.getCurrentTime());
+            if (!player) return;
+            var formatted = FormateSeconds(currentTimeInt);
+            document.getElementById("currentTime").innerHTML = formatted;
+
+            //Aqui mostra o tempo total da musica
+            var totalDuration = FormateSeconds(Math.round(player.getDuration()));
+            document.getElementById("totalTime").innerHTML = totalDuration;
+
+            //Aqui controla o slider que mostra que parte ta na musica
+            var currentTimeFloat = player.getCurrentTime();
+            var totalDuration = player.getDuration();
+            percent = currentTimeFloat * 100 / totalDuration;
+            document.getElementById('progress_bar').value = percent;
+        }
+    }, 10);
+
+    function delay(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+    }
+
+    async function MediaPlayerStarted() {
+        var mediaPlayerContainer = document.getElementById('mediaPlayerContainer');
+        mediaPlayerContainer.classList ? mediaPlayerContainer.classList.add('musicPlayer_container_showing') : mediaPlayerContainer.className += ' musicPlayer_container_showing';
+        await delay(3000);
+        mediaPlayerContainer.classList ? mediaPlayerContainer.classList.remove('musicPlayer_container_showing') : mediaPlayerContainer.className -= ' musicPlayer_container_showing';
+    }
+
+
+    function onStateChange() {
         var totalDuration = FormateSeconds(player.getDuration());
         document.getElementById("totalTime").innerHTML = totalDuration;
     }
@@ -112,32 +164,6 @@
         document.getElementById('volumeUp').style.display = 'none';
         document.getElementById('volumeMute').style.display = 'inline';
     }
-
-    function ProgressChanged() {
-        var val = document.getElementById('progress_bar').value;
-        var current = val / 100 * player.getDuration();
-        player.seekTo(Math.round(current));
-        console.log(current);
-    }
-
-    window.setInterval(function() {
-        if(player.getPlayerState() == 1){
-            //Aqui controla o tempo da musica mostrado na tela
-            var currentTimeInt = Math.round(player.getCurrentTime());
-            if (!player) return;
-            var formatted = FormateSeconds(currentTimeInt);
-            document.getElementById("currentTime").innerHTML = formatted;
-
-            //Aqui controla o slider que mostra que parte ta na musica
-            var currentTimeFloat = player.getCurrentTime();
-            var totalDuration = player.getDuration();
-            percent = currentTimeFloat * 100 / totalDuration;
-            console.log(currentTimeFloat);
-
-            document.getElementById('progress_bar').value = percent;
-
-        }
-    }, 1000);
 
     function FormateSeconds(number) {
         var s = number % 60;

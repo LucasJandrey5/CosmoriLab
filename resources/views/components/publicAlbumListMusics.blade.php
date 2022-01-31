@@ -6,6 +6,8 @@ use App\Models\Album;
 use App\Models\Music;
 
 
+
+
 $musics = DB::table('albums')
     ->join('music', 'albums.id', '=', 'music.id_album')
     ->select('music.*')
@@ -14,11 +16,22 @@ $musics = DB::table('albums')
     ->get();
 
 
+$user = DB::table('users')
+    ->join('albums', 'users.id', '=', 'albums.id_user')
+    ->select('users.*')
+    ->where('users.id', '=', $idAlbum)
+    ->get()[0];
+
+
 $count = 1;
 
 foreach ($musics as $music) {
+    $url = "'" . $music->song_youtube_url_string . "'";
+    $music_name = "'" . $music->name_string . "'";
+    $composer_name = "'" . $user->name_string . "'";
+
     echo '
-            
+
     <div class="col-lg-3 col-md-4 col-sm-12">
                     <div class="card">
                         <div class="file">
@@ -30,7 +43,7 @@ foreach ($musics as $music) {
                                 </div>
                                 <div class="image">
                                     <img src="' . $music->cover_uri_string . '" alt="img" class="img-fluid">
-                                    
+
                                 </div>
                                 <div class="file-name">
                                     <a href="track/' . $music->id . '">
@@ -40,7 +53,7 @@ foreach ($musics as $music) {
                                     <small> Tocada ' . $music->amount_played_int . ' vezes </small>
                                 </div>
                                 <div class="file-name d-flex justify-content-center">
-                                    <a href=""><i class="fas fa-play-circle right_icons"></i></a>
+                                    <a onclick="changeMusic(' . $url . ', ' . $music_name . ', ' . $composer_name . ')"><i class="fas fa-play-circle right_icons"></i></a>
                                     <a href=""><i class="fas fa-download right_icons"></i></a>
                                     <a href=""><i class="fas fa-ellipsis-h right_icons"></i></a>
                                 </div>

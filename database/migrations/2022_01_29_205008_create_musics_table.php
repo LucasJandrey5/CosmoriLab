@@ -29,7 +29,7 @@ class CreateMusicsTable extends Migration
             $table->integer('amount_purchases_int');
             $table->integer('amount_played_int');
             $table->string('cover_uri_string');
-            $table->string('song_spotify_uri_string');
+            $table->string('song_youtube_url_string');
             $table->timestamps();
         });
 
