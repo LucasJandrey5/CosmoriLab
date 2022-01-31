@@ -28,6 +28,10 @@ Route::get('/album/{id}', function ($id) {
     return view('publicAlbumPage', ['id_album' => $id]);
 });
 
+Route::get('/track/{id}', function ($id) {
+    return view('publicMusicPage', ['id_music' => $id]);
+});
+
 
 Route::middleware(['admin'])->group(function () {
     Route::get('/adm', [AdminController::class, 'ADMPage'])->name('adm.page');

@@ -4,14 +4,13 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Album;
-
 use App\Models\Music;
 
 $album = Album::find($idAlbum);
 
 $album = DB::table('albums')
     ->join('music', 'albums.id', '=', 'music.id_album')
-    /*->select('albums.*', 'music.musicType_String') */
+    ->select('albums.*')
     ->where('albums.id', '=', $idAlbum)
     ->get()[0];
 
@@ -21,9 +20,8 @@ $musics = DB::table('music')
     ->get();
 
 $user = DB::table('users')
-    ->join('albums', 'users.id', '=', 'albums.id_user')
     ->select('users.*')
-    ->where('albums.id_user', '=', $idAlbum)
+    ->where('users.id', '=', '' . $album->id_user . '')
     ->get()[0];
 ?>
 
@@ -41,7 +39,7 @@ $user = DB::table('users')
                 <div class="border-bottom p-4">
                     <div class="osahan-user text-center">
                         <div class="osahan-user-media">
-                            <img class="mb-3 rounded-pill shadow-sm mt-1" src="<?php echo $album->cover_uri_string ?>" alt="gurdeep singh osahan">
+                            <img class="mb-3 shadow-sm mt-1" src="<?php echo $album->cover_uri_string ?>" alt="gurdeep singh osahan">
                             <div class="osahan-user-media-body">
                                 <h6 class="mb-2"><?php echo $album->name_string ?></h6>
                                 <a href="/profile/<?php echo $user->id; ?>">
@@ -54,11 +52,21 @@ $user = DB::table('users')
 
                                 <hr>
 
+                                <p class="mb-1">R$ <?php echo $album->price_decimal ?></p>
+
                                 <div>
                                     <a class="btn btn-sm btn-outline-primary mb-1 btn_same_width" href="#"><i class="fas fa-shopping-cart"></i> Adicionar ao Carrinho</a>
                                 </div>
                                 <div>
                                     <a class="btn btn-sm btn-primary mt-1 btn_same_width" href="#"><i class="fas fa-credit-card"></i> Comprar agora</a>
+                                </div>
+                                <hr>
+
+                                <div>
+                                    <a class="outline-primary" href="#"><i class="fas fa-share"></i> Compartilhar</a>
+                                </div>
+                                <div>
+                                    <a class="outline-primary" href="#"><i class="fas fa-heart"></i> Adicionar à lista de desejos</a>
                                 </div>
 
                                 <hr>

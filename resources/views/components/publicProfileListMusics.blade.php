@@ -12,6 +12,12 @@ $user = DB::table('users')
     ->where('albums.id_user', '=', $idUser)
     ->get()[0];
 
+$album = DB::table('users')
+    ->join('albums','users.id', '=', 'albums.id_user')
+    ->select('albums.*')
+    ->where('albums.id_user', '=', $idUser)
+    ->get()[0];
+
 
 $musics = DB::table('users')
     ->join('albums', 'users.id', '=', 'albums.id_user')
@@ -41,10 +47,10 @@ foreach ($musics as $music) {
                 </div>
                 <div class="flex-column align-items-center">
                     <div>
-                        <span class="music_title">' . $music->name_string . '</span>
+                        <a href="/track/' . $music->id . '"><span class="music_title">' . $music->name_string . '</span></a>
                     </div>
                     <div>
-                        <span class="music_composer">' . $user->name_string . '</span>
+                    <a href="/album/' . $album->id . '"><span class="music_composer">' . $album->name_string . '</span></a>
                     </div>
                 </div>
 

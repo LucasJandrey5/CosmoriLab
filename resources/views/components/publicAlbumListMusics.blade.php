@@ -46,10 +46,10 @@ foreach ($musics as $music) {
 
                                 </div>
                                 <div class="file-name">
-                                    <a href="track/' . $music->id . '">
+                                    <a href="/track/' . $music->id . '">
                                     <p class="m-b-5 text-muted" style="margin-bottom: 1px;">' . $count . '. ' . $music->name_string . '</p></a>
                                     <small class="date text-muted"> ' . $music->duration_time . ' </small>
-                                    <small> R$' . $music->price_decimal . '<span class="date text-muted">' . $music->release_date . '</span></small>
+                                    <small> R$ ' . $music->price_decimal . '<span class="date text-muted">' . $music->release_date . '</span></small>
                                     <small> Tocada ' . $music->amount_played_int . ' vezes </small>
                                 </div>
                                 <div class="file-name d-flex justify-content-center">
