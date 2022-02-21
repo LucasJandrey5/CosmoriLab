@@ -96,7 +96,7 @@ function fullNameToFirstName($fullName, $checkFirstNameLength=TRUE)
                     <!-- Logo -->
                     <div class="col-lg-2 col-sm-3 col-3 order-1">
                         <div class="logo_container">
-                            <div class="logo"><a href="#">BBB</a></div>
+                            <div class="logo"><a href="#"><img style="max-width: 100% !important;" src="https://cdn.discordapp.com/attachments/653267930817101854/945373911460233236/logo.png"></a></div>
                         </div>
                     </div> <!-- Search -->
                     <div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">

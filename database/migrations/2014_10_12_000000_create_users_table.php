@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('phone_string')->nullable();
             $table->enum('access_level_enum', ['ADM', 'EMPLOYEE', 'USER', 'COMPOSER']);
             $table->date('birth_date')->nullable();
-            $table->string('uri_photo_string');
+            $table->string('uri_photo_string')->default('https://fopiess.org.br/wp-content/uploads/2018/01/default1.jpg');
             $table->rememberToken();
             $table->timestamps();
         });
